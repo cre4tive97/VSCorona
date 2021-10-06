@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          VSCorona
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v1.0.0</div>
       </q-toolbar>
     </q-header>
 
@@ -104,13 +104,14 @@ export default defineComponent({
 
   setup () {
     const leftDrawerOpen = ref(false)
+    const toggleLeftDrawer = () => {
+      leftDrawerOpen.value = !leftDrawerOpen.value
+    }
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      toggleLeftDrawer
     }
   }
 })

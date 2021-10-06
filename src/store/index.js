@@ -1,4 +1,5 @@
 import { store } from 'quasar/wrappers'
+import axios from 'src/boot/axios'
 import { createStore } from 'vuex'
 
 // import example from './module-example'
@@ -17,7 +18,23 @@ export default store(function (/* { ssrContext } */) {
     modules: {
       // example
     },
+    data () {
+      return {
+        nationalCounter: []
+      }
+    },
+    mutations: {
 
+    },
+    actions: {
+      getCovidData (context) {
+        axios.get(
+          'https://api.corona-19.kr/korea/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY'
+        ).then(result => {
+          context.state.nationalCounter.push(result)
+        })
+      }
+    },
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: process.env.DEBUGGING
