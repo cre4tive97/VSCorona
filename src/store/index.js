@@ -1,5 +1,5 @@
 import { store } from 'quasar/wrappers'
-import axios from 'src/boot/axios'
+import { api } from 'src/boot/axios'
 import { createStore } from 'vuex'
 
 // import example from './module-example'
@@ -20,7 +20,7 @@ export default store(function (/* { ssrContext } */) {
     },
     data () {
       return {
-        nationalCounter: []
+        nationalCounter: {}
       }
     },
     mutations: {
@@ -28,11 +28,12 @@ export default store(function (/* { ssrContext } */) {
     },
     actions: {
       getCovidData (context) {
-        axios.get(
-          'https://api.corona-19.kr/korea/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY'
-        ).then(result => {
-          context.state.nationalCounter.push(result)
-        })
+        api.get('https://api.corona-19.kr/korea/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY')
+          .then((result) => {
+            console.log(result)
+            context.nationalCounter = result.data
+            console.log(context.nationalCounter)
+          })
       }
     },
     // enable strict mode (adds overhead!)
