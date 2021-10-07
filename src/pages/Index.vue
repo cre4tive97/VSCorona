@@ -1,9 +1,9 @@
 <template>
 <div class="container">
-  <div class="row justify-center">  <q-card class="my-card">
+  <div class="row justify-center q-mt-lg">  <q-card class="my-card">
       <q-card-section>
         <div class="text-h6">국내 시・도별 코로나 현황</div>
-        <div class="text-subtitle2">by John Doe</div>
+        <div class="text-subtitle2">신규 확진 :  </div>
       </q-card-section>
 
       <q-markup-table>
@@ -73,8 +73,12 @@ export default defineComponent({
   setup (props) {
     const store = useStore()
     onMounted(() => {
-      store.dispatch('getCovidData')
+      store.dispatch('getNationalCounter')
     })
+
+    return {
+
+    }
   }
 })
 

@@ -20,20 +20,32 @@ export default store(function (/* { ssrContext } */) {
     },
     data () {
       return {
-        nationalCounter: {}
+        nationalCounter: {},
+        sortedByCity: {}
       }
     },
     mutations: {
-
+      setNationalCounter (state, payload) {
+        state.nationalCounter = { ...payload }
+        console.log(state.nationalCounter)
+      },
+      getSortedByCity (state, payload) {
+        state.sortedByCity = { ...payload }
+      }
     },
     actions: {
-      getCovidData (context) {
+      getNationalCounter (context) {
         api.get('https://api.corona-19.kr/korea/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY')
           .then((result) => {
-            console.log(result)
-            context.nationalCounter = result.data
-            console.log(context.nationalCounter)
+            context.commit('setNationalCounter', result.data)
           })
+      },
+      getSortedByCity (context) {
+        api.get(
+          'https://api.corona-19.kr/korea/country/new/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY'
+        ).then(result => {
+          context.commit('setSortedByCity', result.data)
+        })
       }
     },
     // enable strict mode (adds overhead!)
