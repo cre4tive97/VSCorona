@@ -18,19 +18,22 @@ export default store(function (/* { ssrContext } */) {
     modules: {
       // example
     },
-    data () {
+    state () {
       return {
         nationalCounter: {},
-        sortedByCity: {}
+        sortedByCity: {},
+        sortedByKorea: {}
       }
     },
     mutations: {
       setNationalCounter (state, payload) {
-        state.nationalCounter = { ...payload }
-        console.log(state.nationalCounter)
+        state.nationalCounter = payload
       },
-      getSortedByCity (state, payload) {
-        state.sortedByCity = { ...payload }
+      setSortedByCity (state, payload) {
+        state.sortedByCity = payload
+      },
+      setSortedByKorea (state, payload) {
+        state.sortedByKorea = payload
       }
     },
     actions: {
@@ -45,6 +48,7 @@ export default store(function (/* { ssrContext } */) {
           'https://api.corona-19.kr/korea/country/new/?serviceKey=xUMn8d6i7mpuVzcALSGFfKrqEZo2lsRIY'
         ).then(result => {
           context.commit('setSortedByCity', result.data)
+          context.commit('setSortedByKorea', result.data.korea)
         })
       }
     },
